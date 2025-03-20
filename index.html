@@ -186,17 +186,19 @@
                 <input type="text" id="bank1" name="bank1">
             </label>
             <label for="loan1">Suma imprumutata banca 1:</label>
-            <input type="number" id="loan1" name="loan1" value=0 required>
+            <input type="number" id="loan1" name="loan1" required>
             <label for="rate1">Rata lunara banca 1:</label>
-            <input type="number" id="rate1" name="rate1" value=0 required>
-            <label for="period1">Durata creditului banca 1:</label>
-            <input type="number" id="period1" name="period1" value=0 required>
+            <input type="number" id="rate1" name="rate1" required>
+            <label for="period1">Durata (luni) creditului banca 1:</label>
+            <input type="number" id="period1" name="period1" required>
             <div id="interestResult1"></div>
         </div>
     </form>
     <form id="resultForm">
         <div class="button-container">
             <button type="button" onclick="addBankColumn()">Adauga inca o banca</button>
+            <br>
+            <button type="button" onclick="removeLastBankColumn()">Sterge ultima banca</button>
             <br>
             <button type="button" onclick="calculateYearlyInterest()">Calculeaza dobanda</button>
         </div>
@@ -217,14 +219,25 @@
                     <input type="text" id="bank${bankCount}" name="bank${bankCount}">
                 </label>
                 <label for="loan${bankCount}">Suma imprumutata banca ${bankCount}:</label>
-                <input type="number" id="loan${bankCount}" name="loan${bankCount}" value=0 required>
+                <input type="number" id="loan${bankCount}" name="loan${bankCount}" required>
                 <label for="rate${bankCount}">Rata lunara banca ${bankCount}:</label>
-                <input type="number" id="rate${bankCount}" name="rate${bankCount}" value=0 required>
-                <label for="period${bankCount}">Durata creditului banca ${bankCount}:</label>
-                <input type="number" id="period${bankCount}" name="period${bankCount}" value=0 required>
+                <input type="number" id="rate${bankCount}" name="rate${bankCount}" required>
+                <label for="period${bankCount}">Durata (luni) creditului banca ${bankCount}:</label>
+                <input type="number" id="period${bankCount}" name="period${bankCount}" required>
                 <div id="interestResult${bankCount}"></div>
             `;
             rateForm.appendChild(newColumn);
+        }
+
+        function removeLastBankColumn() {
+            if (bankCount > 1) {
+                const rateForm = document.getElementById('rateForm');
+                const lastColumn = document.getElementById(`rateColumn${bankCount}`);
+                rateForm.removeChild(lastColumn);
+                bankCount--;
+            } else {
+                alert('Nu se poate sterge ultima banca.');
+            }
         }
 
         function calculateYearlyInterest() {
